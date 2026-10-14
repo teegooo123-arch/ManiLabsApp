@@ -2,16 +2,13 @@ name: Build APK
 on: [push]
 jobs:
   build:
-    runs-on: ubuntu-20.04
+    runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-      - name: Build APK
-        uses: ArtemSBulgakov/buildozer-action@v1
+      - uses: ArtemSBulgakov/buildozer-action@v1
         with:
-          workdir:.
           buildozer_version: stable
-      - name: Upload APK
-        uses: actions/upload-artifact@v3
+      - uses: actions/upload-artifact@v4
         with:
           name: apk-file
           path: bin/*.apk
