@@ -1,14 +1,21 @@
 name: Build APK
-on: [push]
+on:
+  push:
+    branches: [ main ]
 jobs:
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v3
-      - uses: ArtemSBulgakov/buildozer-action@v1
+      - name: Checkout code
+        uses: actions/checkout@v3
+      - name: Build APK with Buildozer
+        uses: ArtemSBulgakov/buildozer-action@v1
         with:
+          workdir: .
           buildozer_version: stable
-      - uses: actions/upload-artifact@v4
+          command: buildozer android debug
+      - name: Upload APK
+        uses: actions/upload-artifact@v4
         with:
           name: apk-file
           path: bin/*.apk
