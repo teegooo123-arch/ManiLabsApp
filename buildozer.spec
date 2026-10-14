@@ -5,7 +5,7 @@ package.domain = com.manilabs.solution
 source.dir =.
 source.include_exts = py,db,kv,png,jpg,csv
 version = 1.2
-requirements = python3,kivy==2.3.0,Pillow
+requirements = python3,kivy,Pillow
 orientation = portrait
 fullscreen = 0
 android.permissions = INTERNET
