@@ -5,8 +5,8 @@ jobs:
     runs-on: ubuntu-22.04
     steps:
       - uses: actions/checkout@v4
-      - name: Clean old builds
-        run: rm -rf.buildozer bin
+      - name: Clean
+        run: rm -rf.buildozer bin __pycache__
       - uses: actions/setup-python@v5
         with:
           python-version: '3.11'
@@ -14,15 +14,10 @@ jobs:
         with:
           distribution: 'temurin'
           java-version: '17'
-      - name: Install dependencies
-        run: |
-          pip install buildozer cython==0.29.33
-          sudo apt-get update
-          sudo apt-get install -y libffi-dev libssl-dev
-      - name: Build APK
-        run: buildozer android debug
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
+      - run: pip install buildozer cython==0.29.33
+      - run: sudo apt-get update && sudo apt-get install -y libffi-dev libssl-dev
+      - run: buildozer android debug
+      - uses: actions/upload-artifact@v4
         with:
           name: Mani-Labs-APK
           path: bin/*.apk
